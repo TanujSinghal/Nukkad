@@ -1,0 +1,55 @@
+<div class="content-section implementation">
+    <h3 style="margin: 2% -10%;">Select Available Items</h3>
+    <p-listbox [options]="orderedItems" [(ngModel)]="selectedItems" [multiple]="true" 
+    [style]="{'width':'120%', 'margin': '0% -10%'}" (onChange)="reCalculate()" [readonly]="status != 1">
+        <ng-template let-item pTemplate="item">
+            <span>
+                <b>{{item.label}}</b>
+                <i class="pi pi-check show" style="float: right;"></i>
+                <i class="pi pi-times hide" style="float: right;"></i>
+            </span>
+            <p>Quantity: {{item.Quantity}}</p>
+            <p>Unit Price: Rs.{{item.Price}}</p>
+        </ng-template>
+    </p-listbox>
+    <div style="font-weight: bold; margin: 0% -10%">
+        <span class="p-col-7" style="float: right">Amount (Rs): {{cartValue}}</span>
+        <span class="p-col-5" style="float: right">Final Item(s): {{cartCount}}</span>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid" *ngIf="status == 1">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Accept Order" class="ui-button-raised" (click)="save()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid" *ngIf="status == 1">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Reject Order" class="ui-button-raised ui-button-secondary" (click)="updateStatus(3)"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid" *ngIf="status == 3 || status == 7">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Go Back" class="ui-button-raised ui-button-secondary" [routerLink]="['/orders']"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid" *ngIf="status == 2 || status == 4">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Out for Delivery" class="ui-button-raised ui-button-secondary" (click)="updateStatus(5)"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid" *ngIf="status == 5">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Delivered and Paid" class="ui-button-raised ui-button-secondary" (click)="updateStatus(7)"></button>
+            </div>
+        </div>
+    </div>
+</div>

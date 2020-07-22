@@ -1,0 +1,52 @@
+<div class="content-section implementation">
+    <h3 style="margin: 2% -10%">Cart Summary</h3>
+    <p-fieldset legend="Delivery Details" class="cust-fieldset" [toggleable]="true" [transitionOptions]="'100ms'" [collapsed]="false" [style]="{'width':'120%', 'margin': '3% -10%'}">
+        <div *ngIf="buyerInfo.BuyerId">
+            <p><i class="pi pi-user"></i> {{buyerInfo.BuyerName}}</p>
+            <p><i class="pi pi-map-marker"></i> {{buyerInfo.Address}}</p>
+            <p><i class="pi pi-mobile"></i> <a href="tel:{{buyerInfo.ContactNo}}">{{buyerInfo.ContactNo}}</a></p>
+        </div>
+        <div *ngIf="!buyerInfo.BuyerId" style="text-align:center;" (click)="login()">
+            Login to view Details
+        </div>
+    </p-fieldset>
+    <p-dataView #dv [value]="productList" filterBy="label" [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'120%', 'margin': '3% -10%'}">
+        <p-header>
+        <div class="p-col-12 ui-helper-clearfix" style="padding: 0%;">
+            <span class="p-col-2" style="float: right">Price</span>
+            <span class="p-col-2" style="float: right">Qty.</span>
+            <span class="p-col-8" style="float: right">Item</span>
+        </div>
+        </p-header>
+        <ng-template let-item pTemplate="listItem">
+            <div class="p-col-12" *ngIf="cart[item.value.SellerItemtId]">
+                <span class="p-col-2" style="float: right">{{item.value.Price}}</span>
+                <span class="p-col-2" style="float: right">{{cart[item.value.SellerItemtId]}}</span>
+                <span class="p-col-8" style="float: right">{{item.label}}</span>
+            </div>
+        </ng-template>
+    </p-dataView>
+    <div style="font-weight: bold; margin: 0% -10%">
+        <span class="p-col-7" style="float: right">Amount (Rs): {{cartValue}}</span>
+        <span class="p-col-5" style="float: right">Total Item(s): {{cartCount}}</span>
+    </div>
+    <p-fieldset legend="Seller: {{sellerInfo.ShopName}}" class="cust-fieldset" [toggleable]="true" [transitionOptions]="'100ms'" [collapsed]="true" [style]="{'width':'120%', 'margin': '3% -10%'}">
+        <p><i class="pi pi-map-marker"></i> {{sellerInfo.Address}}</p>
+        <p><i class="pi pi-mobile"></i> <a href="tel:{{sellerInfo.ContactNo}}">{{sellerInfo.ContactNo}}</a></p>
+    </p-fieldset>   
+    <p>&nbsp;</p>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Place Order" style="float: right;" class="ui-button-raised" (click)="save()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Go to Catalogue" style="float:right" class="ui-button-secondary" [routerLink]="['/catalogue/'+sellerId]"></button>
+            </div>
+        </div>
+    </div>
+</div>

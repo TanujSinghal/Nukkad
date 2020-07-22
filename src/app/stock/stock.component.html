@@ -1,0 +1,50 @@
+<div class="content-section implementation">
+<div [hidden]="newUser">
+    <p-selectButton id="home" [options]="types" [(ngModel)]="currentPage" (onChange)="navigateRoute()" [style]="{'width':'120%', 'margin': '3% -10%'}"></p-selectButton>
+    <p-listbox id="update" [options]="productList" [(ngModel)]="myProduct" [multiple]="true" 
+        [style]="{'width':'120%', 'margin': '-10%', 'margin-top': '0px'}" [readonly]="true">
+        <ng-template let-item pTemplate="item">
+            <h3>{{item.label}}</h3>
+            <div style="float: right;">
+                <p-inputNumber [(ngModel)]="item.value.Price" placeholder="Unit Price" [size]="10" mode="currency" currency="INR" currencyDisplay="code" locale="en-IN">
+                </p-inputNumber>
+            </div>
+            <div style="display: contents;">
+                <p>In Stock ({{item.value.IsAvailable ? 'Yes' : 'No'}})</p>
+                <p-inputSwitch [(ngModel)]="item.value.IsAvailable"></p-inputSwitch>
+            </div>
+        </ng-template>
+    </p-listbox>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Save" style="float: right;" class="ui-button-raised" (click)="save()"></button>
+                <!-- <button pButton type="button" label="Save" style="float: right;" class="ui-button-secondary" (click)="save()"></button> -->
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Add / Remove Items" style="float:right" class="ui-button-secondary" [routerLink]="['/products']"></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div [hidden]="!newUser">
+    <h3 style="text-align: center;">Welcome To Locale Store!</h3>
+    <p class="ic-delivery" style="margin-left: auto;margin-right: auto; width: 89%; height: 300px"></p>
+    <p>&nbsp;</p>
+    <h4 style="text-align: center;">Start by creating your catalog.</h4>
+    <p>&nbsp;</p>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Add Products / Services" class="ui-button-raised" [routerLink]="['/products']"></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

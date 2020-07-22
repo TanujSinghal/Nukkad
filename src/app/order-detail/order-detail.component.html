@@ -1,0 +1,38 @@
+<div class="content-section implementation">
+    <h3 style="margin: 2% -10%">Order Details</h3>
+    <p-dataView #dv [value]="productList" filterBy="label" [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'120%', 'margin': '3% -10%'}">
+        <p-header>
+        <div class="p-col-12 ui-helper-clearfix" style="padding: 0%;">
+            <span class="p-col-2" style="float: right">Price</span>
+            <span class="p-col-2" style="float: right">Qty.</span>
+            <span class="p-col-8" style="float: right">Item</span>
+        </div>
+        </p-header>
+        <ng-template let-item pTemplate="listItem">
+            <div class="p-col-12">
+                <span class="p-col-2" style="float: right">{{item.Price}}</span>
+                <span class="p-col-2" style="float: right">{{item.Quantity}}</span>
+                <span class="p-col-8" style="float: right">{{item.ItemName}} ({{item.UnitName}})</span>
+            </div>
+        </ng-template>
+    </p-dataView>
+    <div style="font-weight: bold; margin: 0% -10%">
+        <span class="p-col-7" style="float: right">Amount (Rs): {{cartValue}}</span>
+        <span class="p-col-5" style="float: right">Total Item(s): {{cartCount}}</span>
+    </div>
+    <p>&nbsp;</p>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Cancel order" style="float: right;" class="ui-button-raised" (click)="cancel()"></button>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="View all orders" style="float:right" class="ui-button-secondary" [routerLink]="['/order-list/']"></button>
+            </div>
+        </div>
+    </div>
+</div>

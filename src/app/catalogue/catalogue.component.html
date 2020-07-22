@@ -1,0 +1,46 @@
+<div class="content-section implementation">
+<p-fieldset legend="{{sellerInfo.ShopName}}" class="cust-fieldset" [toggleable]="true" [transitionOptions]="'100ms'" [collapsed]="true" [style]="{'width':'120%', 'margin': '3% -10%'}">
+    <p><i class="pi pi-map-marker"></i> {{sellerInfo.Address}}</p>
+    <p><i class="pi pi-mobile"></i> <a href="tel:{{sellerInfo.ContactNo}}">{{sellerInfo.ContactNo}}</a></p>
+</p-fieldset>
+<p-dataView #dv [value]="productList" filterBy="label" [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'120%', 'margin': '3% -10%'}">
+    <p-header>
+        <input type="search" style="width:100%" pInputText placeholder="Search / Filter" (input)="dv.filter($event.target.value)">
+    </p-header>
+    <ng-template let-item pTemplate="listItem">
+        <div class="p-col-12 border">
+            <div>
+                <img src="assets/order-list-b.png" style="height:80px" class="p-col-3" (click)="selectCar($event, item)">
+                <div class="p-col-9" style="float: right;">
+                    <p style="font-weight: bold;" (click)="selectCar($event, item)">{{item.label}}</p>
+                    <p (click)="selectCar($event, item)">Rs. {{item.value.Price}}</p>
+                    <p style="float: right;" *ngIf="item.value.IsAvailable" (click)="evaluateCount()">
+                        <button pButton type="button" label="Add" class="ui-button-warning" *ngIf="cart[item.value.SellerItemtId] == 0 || cart[item.value.SellerItemtId] == null" (click)="cart[item.value.SellerItemtId] = 1"></button>
+                        <p-inputNumber [(ngModel)]="cart[item.value.SellerItemtId]" [hidden]="cart[item.value.SellerItemtId] == 0 || cart[item.value.SellerItemtId] == null" [size]="1" [showButtons]="true" (onBlur)="evaluateCount()"
+                        buttonLayout="horizontal" decrementButtonClass="ui-button-secondary" incrementButtonClass="ui-button-secondary" spinnerMode="horizontal" [step]="1" incrementButtonIcon="pi pi-plus" decrementButtonIcon="pi pi-minus">
+                        </p-inputNumber>
+                    </p>
+                    <p style="float: right; color: darkgrey;" *ngIf="!item.value.IsAvailable">
+                        Out of Stock
+                    </p>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-dataView>
+<div class="ui-fluid">
+    <div class="p-field p-grid">
+        <div class="p-col-12 p-md-12">
+            <button pButton type="button" label="Go to Cart" style="float: right;" class="ui-button-raised" [routerLink]="['/cart/'+sellerId]"></button>
+        </div>
+    </div>
+</div>
+</div>
+
+<p-dialog header="{{selectedItem.label}}" [(visible)]="displayDialog" [minY]="70" showEffect="fade" [modal]="true" 
+    [style]="{width: '225px'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em', textAlign: 'center'}">
+    <div *ngIf="selectedItem">
+        <img src="assets/order-list-b.png" style="height:160px">
+        <p style="font-weight: bold;">Rs. {{selectedItem.value.Price}}</p>
+    </div>
+</p-dialog>

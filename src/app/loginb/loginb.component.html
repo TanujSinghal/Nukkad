@@ -1,0 +1,44 @@
+<div class="content-section implementation">
+    <form [formGroup]="loginForm">
+    Login to Place Order 
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="MobileNo" class="p-col-12 p-md-2">Mobile Number</label>
+            <div class="p-col-12 p-md-10">
+                <input id="MobileNo" pattern="^[6-9]\d{9}$" formControlName="MobileNo" maxlength="10" type="text" pInputText> 
+                <p-message severity="error"  [text]="loginForm.controls['MobileNo'].errors['required'] ? 'Mobile Number is required' : loginForm.controls['MobileNo'].errors['pattern'] ? 'Must be a valid number' : ''" 
+                *ngIf="!loginForm.controls['MobileNo'].valid&&submitted"></p-message>
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="Password" class="p-col-12 p-md-2">Password</label>
+            <div class="p-col-12 p-md-10">
+                <div class="ui-inputgroup">
+                    <input id="Password" formControlName="Password" type="password" [showPassword]="showPassword" [feedback]="false" maxlength="20" pPassword>        
+                    <span class="ui-inputgroup-addon"><i [ngClass]="showPassword ? 'pi  pi-eye-slash' : 'pi  pi-eye'" style="line-height: .65;" (click)="showPassword = !showPassword"></i></span>
+                </div>
+                <p-message severity="error" [text]="loginForm.controls['Password'].errors['required'] ? 'Password is required' : loginForm.controls['Password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                *ngIf="!loginForm.controls['Password'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Login" style="float:right" class="ui-button-raised" (click)="login()"></button>
+            </div>
+        </div>
+    </div>
+    </form>
+    
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="New Buyer? Register" style="float:right" class="ui-button-raised ui-button-success" (click)="signUp()"></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<p-blockUI [blocked]="spinnerService.showSpinner"><p-progressSpinner [style]="{'margin': '70% 40%'}"></p-progressSpinner></p-blockUI>
+
+<p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
+
+<p-sidebar [(visible)]="showMenu" [baseZIndex]="10000">
+  <h1 style="font-weight:normal">Left Sidebar</h1>
+  <button pButton type="button" (click)="showMenu = false" label="Save" class="ui-button-success"></button>
+  <button pButton type="button" (click)="showMenu = false" label="Cancel" class="ui-button-secondary"></button>
+</p-sidebar>
+
+<div class="toolbar" role="banner" *ngIf="showHeader">
+  <i (click)="showMenu = true" class="pi pi-bars" style="font-size: 1.5em" id="menu"></i>
+  <div class="spacer"></div>    
+  <i class="pi pi-share-alt" *ngIf="currentComponent != 'Catalogue'" [routerLink]="['/catalogue/'+sellerId]" alt="Share Catelog" style="font-size: 1.5em" id="cart"></i>
+  <i class="pi pi-shopping-cart" *ngIf="currentComponent == 'Catalogue'" [routerLink]="['/cart/'+sellerId]" alt="Share Catelog" style="font-size: 1.5em" id="cart"><span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span></i>
+</div>
+
+<router-outlet (activate)="onActivate($event.route.component.name)"></router-outlet>

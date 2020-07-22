@@ -1,0 +1,140 @@
+<div class="content-section implementation">
+    <h3>{{viewState==2 ? 'Update Profile' : 'Registration Form'}}</h3>
+    <p-steps [model]="items" [activeIndex]="viewState"></p-steps>
+    <form [formGroup]="signupForm" [hidden]="viewState != 0">
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="MobileNo" class="p-col-12 p-md-2">Mobile Number</label>
+            <div class="p-col-12 p-md-10">
+                <input id="MobileNo" pattern="^[6-9]\d{9}$" formControlName="MobileNo" maxlength="10" type="text" pInputText> 
+                <p-message severity="error"  [text]="signupForm.controls['MobileNo'].errors['required'] ? 'Mobile Number is required' : signupForm.controls['MobileNo'].errors['pattern'] ? 'Must be a valid number' : ''" 
+                *ngIf="!signupForm.controls['MobileNo'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Next" style="float:right" class="ui-button-raised" (click)="submit()"></button>
+            </div>
+        </div>
+    </div>
+    </form>
+    <form [formGroup]="signupForm1" [hidden]="viewState != 1">
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="MobileNo" class="p-col-12 p-md-2">Mobile Number</label>
+            <div class="p-col-12 p-md-10">
+                <div class="ui-inputgroup">
+                    <input id="MobileNo" pattern="^[6-9]\d{9}$" formControlName="MobileNo" maxlength="10" type="text" readonly="true" pInputText> 
+                    <span class="ui-inputgroup-addon"><i class="pi pi-pencil" style="line-height: .65;" (click)="viewState=viewState-1"></i></span>
+                </div>
+                <p-message severity="error"  [text]="signupForm1.controls['MobileNo'].errors['required'] ? 'Mobile Number is required' : signupForm1.controls['MobileNo'].errors['pattern'] ? 'Must be a valid number' : ''" 
+                *ngIf="!signupForm1.controls['MobileNo'].valid&&submitted"></p-message>
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="Password" class="p-col-12 p-md-2">Password</label>
+            <div class="p-col-12 p-md-10">
+                <div class="ui-inputgroup">
+                    <input id="Password" formControlName="Password" type="password" [showPassword]="showPassword" [feedback]="false" maxlength="20" pPassword>        
+                    <span class="ui-inputgroup-addon"><i [ngClass]="showPassword ? 'pi  pi-eye-slash' : 'pi  pi-eye'" style="line-height: .65;" (click)="showPassword = !showPassword"></i></span>
+                </div>
+                <p-message severity="error" [text]="signupForm1.controls['Password'].errors['required'] ? 'Password is required' : signupForm1.controls['Password'].errors['minlength'] ? 'Must be longer than 6 characters' : ''" 
+                *ngIf="!signupForm1.controls['Password'].valid&&submitted"></p-message>
+            </div>
+        </div>
+        <div class="p-field p-grid">
+            <label for="RePassword" class="p-col-12 p-md-2">Re-enter Password</label>
+            <div class="p-col-12 p-md-10">
+                <input id="RePassword" formControlName="RePassword" type="password" [showPassword]="showPassword" [feedback]="false" maxlength="20" pPassword>        
+                <p-message severity="error" [text]="signupForm1.controls['RePassword'].errors['required'] ? 'Password is required' : signupForm1.controls['RePassword'].errors['mismatch'] ? 'Password mismatch' : ''" 
+                *ngIf="!signupForm1.controls['RePassword'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Next" style="float:right" class="ui-button-raised" (click)="submit1()"></button>
+            </div>
+        </div>
+    </div>
+    </form>
+    <form [formGroup]="profileForm" [hidden]="viewState != 2">
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="Name" class="p-col-12 p-md-2">Full Name</label>
+            <div class="p-col-12 p-md-10">
+                <input id="Name" formControlName="SellerName" maxlength="50" type="text" pInputText> 
+                <p-message severity="error" text="Name is required" *ngIf="!profileForm.controls['SellerName'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="Shop" class="p-col-12 p-md-2">Shop Name</label>
+            <div class="p-col-12 p-md-10">
+                <input id="Shop" formControlName="ShopName" maxlength="50" type="text" pInputText> 
+                <p-message severity="error" text="Shop name is required" *ngIf="!profileForm.controls['ShopName'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="Address" class="p-col-12 p-md-2">Address</label>
+            <div class="p-col-12 p-md-10">
+                <input id="Address" formControlName="Address" maxlength="150" type="text" pInputText> 
+                <p-message severity="error" text="Address is required" *ngIf="!profileForm.controls['Address'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="City" class="p-col-12 p-md-2">City</label>
+            <div class="p-col-12 p-md-10">
+                <p-dropdown [options]="cityList" formControlName="CityId" placeholder="Select a City"></p-dropdown>
+                <p-message severity="error" text="City is required" *ngIf="!profileForm.controls['CityId'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="Email" class="p-col-12 p-md-2">Email</label>
+            <div class="p-col-12 p-md-10">
+                <input id="Email" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$" formControlName="Email" maxlength="100" type="text" pInputText> 
+                <p-message severity="error"  [text]="profileForm.controls['Email'].errors['required'] ? 'Email is required' : profileForm.controls['Email'].errors['pattern'] ? 'Must be a valid email' : ''" 
+                *ngIf="!profileForm.controls['Email'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <label for="Contact" class="p-col-12 p-md-2">Contact</label>
+            <div class="p-col-12 p-md-10">
+                <input id="Contact" pattern="^[6-9]\d{9}$" formControlName="ContactNo" maxlength="10" type="text" pInputText> 
+                <p-message severity="error"  [text]="profileForm.controls['ContactNo'].errors['required'] ? 'Mobile Number is required' : profileForm.controls['ContactNo'].errors['pattern'] ? 'Must be a valid number' : ''" 
+                *ngIf="!profileForm.controls['ContactNo'].valid&&submitted"></p-message>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-10">
+                <p-checkbox formControlName="IsHomeDelevery" label="Home Delivery" [binary]="true"></p-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Submit" style="margin:1px" class="ui-button-raised" (click)="submit2()"></button>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>

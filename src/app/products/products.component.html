@@ -1,0 +1,28 @@
+<div class="content-section implementation">
+    <h3 style="text-align: center; margin: 5px -10%; width: 120%">Select your Products / Services</h3>
+    <p-multiSelect [options]="productList" [(ngModel)]="selectedCategories" defaultLabel="Filter Categories"
+     [style]="{'width':'120%', 'margin': '0% -10% 12% -10%'}">Filter Categories</p-multiSelect>
+    <ng-template ngFor let-category [ngForOf]="selectedCategories">
+        <p-listbox [options]="category.value" [(ngModel)]="myProduct" [multiple]="true" 
+            [style]="{'width':'120%', 'margin': '-10%','padding-bottom': '10%'}">
+            <p-header>
+                <h3 style="margin: 0px;">{{category.label}}</h3>
+            </p-header>
+            <ng-template let-item pTemplate="item">
+                <span style="margin:0px 10px">
+                    {{item.label}}
+                    <i class="pi pi-check show" style="float: right;"></i>
+                </span>
+            </ng-template>
+        </p-listbox>
+    </ng-template>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="Save" style="float: right;" class="ui-button-raised" (click)="save()"></button>
+            </div>
+        </div>
+    </div>
+</div>

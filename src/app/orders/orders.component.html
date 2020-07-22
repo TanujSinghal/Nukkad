@@ -1,0 +1,20 @@
+<div class="content-section implementation">
+    <p-selectButton id="home" [options]="types" [(ngModel)]="currentPage" (onChange)="navigateRoute()" [style]="{'width':'120%', 'margin': '3% -10%'}"></p-selectButton>
+    <p-dataView id="ord" [value]="orderList" filterBy="label" [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'120%', 'margin': '0% -10% -20%'}">
+        <ng-template let-item pTemplate="listItem">
+            <div class="order-card" (click)="action(item)">
+                <p class="ui-helper-clearfix" style="font-weight: bold; font-size: 16px;">
+                    <span style="float: left;">{{item.BuyerName}}</span>
+                <span [ngStyle]="{float: 'right', color: actionLable[item.OrderStatusId].color}">{{item.OrderStatusId ? actionLable[item.OrderStatusId].label : 'New'}}</span>
+                </p>
+                <p>Address: {{item.Address}}</p>
+                <p>Mobile: {{item.ContactNo}}</p>
+                <p>Total Amount: {{item.TotalAmount}}</p>
+                <p>Total Items: {{item.TotalItem}}</p>
+            </div>
+            <div>&nbsp;</div>
+        </ng-template>
+    </p-dataView>
+    <div>&nbsp;</div>
+    <div>&nbsp;</div>
+</div>

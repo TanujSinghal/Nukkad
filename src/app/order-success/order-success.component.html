@@ -1,0 +1,23 @@
+<div class="content-section implementation">
+    <div class="success">
+        <i class="pi pi-check-circle" style="font-size: 3em"></i>
+        <h3>Congratulations!</h3>
+        <p>Order successfully placed.</p>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="View Order Details" class="ui-button-raised ui-button-success" [routerLink]="['/order-detail/'+orderId]"></button>
+            </div>
+        </div>
+    </div>
+    <div>&nbsp;</div>
+    <div class="ui-fluid">
+        <div class="p-field p-grid">
+            <div class="p-col-12 p-md-12">
+                <button pButton type="button" label="View All Orders" class="ui-button-raised" [routerLink]="['/order-list']"></button>
+            </div>
+        </div>
+    </div>    
+</div>
