@@ -44,7 +44,11 @@ export class LoginComponent implements OnInit {
       data => {
         if(data.SellerId) {
           localStorage.setItem('SellerId', data.SellerId);
-          this.router.navigate(['/stock']);
+          //get profile
+          this.commonService.getSellerInfo(data.SellerId).subscribe(data => {
+            localStorage.setItem('SellerProfile', JSON.stringify(data[0]));
+            this.router.navigate(['/stock']);
+          });
         }
         else {
           this.messageService.add({key: 'custom', severity:'error', summary:'Error', detail:'Mobile number / password missmatch'});

@@ -28,4 +28,8 @@ export class OrderDetailComponent implements OnInit {
       this.productList = data;
     });
   }
+
+  public cancel(){
+
+  } 
 }

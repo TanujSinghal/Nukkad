@@ -3,7 +3,7 @@
     <p><i class="pi pi-map-marker"></i> {{sellerInfo.Address}}</p>
     <p><i class="pi pi-mobile"></i> <a href="tel:{{sellerInfo.ContactNo}}">{{sellerInfo.ContactNo}}</a></p>
 </p-fieldset>
-<p-dataView #dv [value]="productList" filterBy="label" [sortField]="sortField" [sortOrder]="sortOrder" [style]="{'width':'120%', 'margin': '3% -10%'}">
+<p-dataView #dv [value]="productList" filterBy="label" [style]="{'width':'120%', 'margin': '3% -10%'}">
     <p-header>
         <input type="search" style="width:100%" pInputText placeholder="Search / Filter" (input)="dv.filter($event.target.value)">
     </p-header>
