@@ -11,3 +11,10 @@
   :host ::ng-deep .custom-toast .ui-toast-message.ui-toast-message-info .ui-toast-close-icon {
     color: #ffffff;
   }
+
+  :host>>>.ui-sidebar i {
+    padding: 9% 5%;
+  }
+  :host>>>.ui-sidebar span {
+    font-size: large;
+  }

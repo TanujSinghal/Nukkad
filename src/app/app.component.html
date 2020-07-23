@@ -2,17 +2,31 @@
 
 <p-toast styleClass="custom-toast" key="custom" position="bottom-center" [showTransformOptions]="'translateX(-100%)'"></p-toast>
 
-<p-sidebar [(visible)]="showMenu" [baseZIndex]="10000">
-  <h1 style="font-weight:normal">Left Sidebar</h1>
-  <button pButton type="button" (click)="showMenu = false" label="Save" class="ui-button-success"></button>
-  <button pButton type="button" (click)="showMenu = false" label="Cancel" class="ui-button-secondary"></button>
+<p-sidebar [(visible)]="showMenu" [baseZIndex]="10000" (click)="toggle()">
+  <h1 style="font-weight:normal">Hello {{sellerName}}</h1>
+  <p [routerLink]="['/signup']"><i class="pi pi-user-edit"></i><span>Update Profile</span></p>
+  <p [routerLink]="['/stock']"><i class="pi pi-pencil"></i><span>Manage Stock</span></p>
+  <p [routerLink]="['/orders']"><i class="pi pi-list"></i><span>Manage Orders</span></p>
+  <p [routerLink]="['/catalogue/'+sellerId]"><i class="pi pi-eye"></i><span>View Catalogue</span></p>
+  <p (click)="showPopup = true"><i class="pi pi-copy"></i><span>Copy Catalogue Link</span></p>
+  <p [routerLink]="['/products']"><i class="pi pi-check-square"></i><span>Update Catalogue</span></p>
+  <p (click)="logout()"><i class="pi pi-power-off"></i><span>Logout</span></p>
 </p-sidebar>
 
 <div class="toolbar" role="banner" *ngIf="showHeader">
   <i (click)="showMenu = true" class="pi pi-bars" style="font-size: 1.5em" id="menu"></i>
   <div class="spacer"></div>    
-  <i class="pi pi-share-alt" *ngIf="currentComponent != 'Catalogue'" [routerLink]="['/catalogue/'+sellerId]" alt="Share Catelog" style="font-size: 1.5em" id="cart"></i>
-  <i class="pi pi-shopping-cart" *ngIf="currentComponent == 'Catalogue'" [routerLink]="['/cart/'+sellerId]" alt="Share Catelog" style="font-size: 1.5em" id="cart"><span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span></i>
+  <i class="pi pi-share-alt" *ngIf="currentComponent != 'Catalogue'" (click)="showPopup = true" alt="Share Catelog" style="font-size: 1.5em" id="cart"></i>
+  <i class="pi pi-shopping-cart" *ngIf="currentComponent == 'Catalogue'" [routerLink]="['/cart/'+sellerId]" alt="My Cart" style="font-size: 1.5em" id="cart"><span class="cart-count" *ngIf="cartCount > 0">{{cartCount}}</span></i>
 </div>
+
+<p-dialog header="Your Catalog Link" [(visible)]="showPopup">
+  http://buyerapp.herokuapp.com/catalogue/{{sellerId}}
+  <input type="text" style="position: fixed; opacity: 0;" value="http://buyerapp.herokuapp.com/catalogue/{{sellerId}}" #userinput readonly="true">
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="copyLink(userinput)" label="Copy Link"></button>
+    <button type="button" pButton icon="pi pi-times" (click)="showPopup=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>
 
 <router-outlet (activate)="onActivate($event.route.component.name)"></router-outlet>
