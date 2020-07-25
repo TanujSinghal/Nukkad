@@ -36,8 +36,8 @@ export class HttpConfigInterceptor implements HttpInterceptor {
                         reason: error && error.error && error.error.reason ? error.error.reason : '',
                         status: error.status
                     };
-                    console.log(data);
-                    this.messageService.add({severity: 'error', summary: 'Erorr', detail: data['reason']});
+                    // console.log(data);
+                    this.messageService.add({key: 'custom', severity: 'error', summary: 'Erorr', detail: error.message});
                     this.reqestCount--;
                     if (this.reqestCount == 0) this.spinnerService.hide();
                     return throwError(error);
